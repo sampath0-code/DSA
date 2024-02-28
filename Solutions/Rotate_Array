@@ -1,1 +1,51 @@
+Steps :
+array = [1,2,3,4,5,6,7] , k = 2
+1. Swap the array first 
+  [7,6,5,4,3,2,1]
+2. Swap the first half -so now we can swap the elemnts using k becuse now the elements we wanted
+  swap are come to the first so we can easly swap the elements just by the k value
+  [6,7,5,4,3,2,1]
+3. Swap the Second half using the k
+  [6,7,1,2,3,4,5]
 
+Done!
+Note :
+1. In some cases where k value equals to the array size, where swapping is not needed because the elements comes to the same position if we swaped.
+array = [1,2,3] k = 3 no swap needed 
+And also if k value is greater than the array value
+ array = [1,2] k = 2 in this senario the output is [2,1] but when we run the program with our code it exceeds the limit because k is greater
+So in this both senarios we need to use the k as modulus of the size of the arry
+i.e k = k % len(array) here, 
+let, k = 3 and size of array = 3 then k = 3 % 3 ==> 0, so  k size and array length are same then k = 0, array is not roatated
+and if k = 3 and size of array = [1,2] 
+here, array size is 2 which is less than k value so we can use k = k % len(array)
+i.e k = 3 % 2 ==> 1, so array element rotate one time output == > [2,1]
+
+
+Code Solution 1:
+        k = k % len(nums)
+
+        l,r = 0,len(nums)-1
+        while(l<r):
+            nums[l],nums[r] = nums[r],nums[l]
+            l,r = l+1,r-1
+        
+        l,r = 0, k-1
+        while(l<r):
+            nums[l], nums[r] = nums[r], nums[l]
+            l,r = l+1,r-1
+
+        l,r = k, len(nums)-1
+        while(l<r):
+            nums[l], nums[r] = nums[r], nums[l]
+            l,r = l+1,r-1
+
+Code Solution 2 : Using reversed() python function take less time then above code
+
+        def rotate(self,nums,k):
+        n = len(nums)
+        k = k % n
+
+        nums[0:n] = reversed(nums[0:n])
+        nums[0:k] = reversed(nums[0:k])
+        nums[k:n] = reversed(nums[k:n])
